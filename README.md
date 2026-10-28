@@ -16,6 +16,7 @@
 |---|---|
 | 홈 화면 연구실 소개 문구, 사이트 이름 | `src/lib/siteConfig.ts` |
 | 구성원 추가·삭제, 역할 변경 | Firebase 콘솔 → Firestore → `allowedEmails` (아래 ⑤ 참고) |
+| "한 번에 불러오기"로 넣는 준비 자료(논문 목록) | `src/data/preparedContent.ts` |
 | 사이트 대표 색상(brand) | `src/index.css` 맨 위 `@theme` 부분 |
 
 > 글꼴은 무료 한글 글꼴 **Pretendard**를 인터넷(CDN)에서 불러옵니다. 별도 설치는 필요 없습니다.

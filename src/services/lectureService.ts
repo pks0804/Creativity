@@ -9,6 +9,7 @@ import {
   orderBy,
   query,
   updateDoc,
+  writeBatch,
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { requireAdmin, requireUser } from './authService';
@@ -49,4 +50,18 @@ export async function updateLecture(id: string, input: LectureInput): Promise<vo
 export async function deleteLecture(id: string): Promise<void> {
   await requireAdmin();
   await deleteDoc(doc(lecturesCol, id));
+}
+
+// 준비된 수업 자료를 한 번에 등록합니다. (관리자 전용, 같은 제목은 건너뜀)
+export async function importLectures(items: (LectureInput & { createdAt: string })[]): Promise<number> {
+  const user = await requireAdmin();
+  const existing = new Set((await listLectures()).map((item) => item.title));
+  const toAdd = items.filter((item) => !existing.has(item.title));
+  const batch = writeBatch(db);
+  for (const item of toAdd) {
+    const data: Omit<Lecture, 'id'> = { ...item, authorId: user.uid, authorName: user.name };
+    batch.set(doc(lecturesCol), data);
+  }
+  await batch.commit();
+  return toAdd.length;
 }

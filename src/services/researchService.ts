@@ -9,6 +9,7 @@ import {
   orderBy,
   query,
   updateDoc,
+  writeBatch,
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { requireAdmin, requireUser } from './authService';
@@ -58,4 +59,19 @@ export async function deleteResearch(id: string): Promise<void> {
   // 자료가 지워지면 그 자료의 토론 댓글도 함께 정리합니다.
   await deleteCommentsOfResearch(id);
   await deleteDoc(doc(researchCol, id));
+}
+
+// 준비된 자료(src/data/preparedContent.ts)를 한 번에 등록합니다. (관리자 전용)
+// 같은 제목이 이미 있으면 건너뛰어 중복을 막고, 실제로 추가한 개수를 돌려줍니다.
+export async function importResearch(items: (ResearchInput & { createdAt: string })[]): Promise<number> {
+  const user = await requireAdmin();
+  const existing = new Set((await listResearch()).map((item) => item.title));
+  const toAdd = items.filter((item) => !existing.has(item.title));
+  const batch = writeBatch(db);
+  for (const item of toAdd) {
+    const data: Omit<Research, 'id'> = { ...item, authorId: user.uid, authorName: user.name };
+    batch.set(doc(researchCol), data);
+  }
+  await batch.commit();
+  return toAdd.length;
 }

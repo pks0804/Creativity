@@ -48,7 +48,7 @@ export default function HomePage() {
         <div className="relative max-w-2xl">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-brand-100 ring-1 ring-white/20">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
-            Pharmaceutical Sciences Lab
+            Keimyung University · College of Pharmacy
           </span>
           <h1 className="mt-5 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
             {LAB_INTRO.title}

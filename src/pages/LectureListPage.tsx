@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { deleteLecture, listLectures } from '../services/lectureService';
+import { deleteLecture, importLectures, listLectures } from '../services/lectureService';
 import type { Lecture } from '../services/types';
 import { formatDate } from '../lib/format';
 import { LinkList } from '../components/LinkList';
 import { PageHeader } from '../components/PageHeader';
+import { ImportPreparedCard } from '../components/ImportPreparedCard';
+import { PREPARED_LECTURES } from '../data/preparedContent';
 import { EmptyState, ErrorMessage, Loading, toMessage } from '../components/StatusMessage';
 import { IconBook, IconEdit, IconPlus, IconTrash } from '../components/Icons';
 
@@ -28,6 +30,13 @@ export default function LectureListPage() {
     for (const item of items) map.set(item.course, [...(map.get(item.course) ?? []), item]);
     return Array.from(map.entries());
   }, [items]);
+
+  const missingPrepared = PREPARED_LECTURES.filter((p) => !items.some((item) => item.title === p.title));
+
+  const handleImport = async () => {
+    await importLectures(missingPrepared);
+    setItems(await listLectures());
+  };
 
   const handleDelete = async (id: string) => {
     if (!window.confirm('이 수업 자료를 삭제할까요?')) return;
@@ -53,6 +62,14 @@ export default function LectureListPage() {
       />
 
       {error && <div className="mb-4"><ErrorMessage message={error} /></div>}
+
+      {isAdmin && !loading && !error && (
+        <ImportPreparedCard
+          missingCount={missingPrepared.length}
+          description="TPD·PROTAC·유도 근접 분야에서 인용이 많은 고영향 논문 5편입니다."
+          onImport={handleImport}
+        />
+      )}
 
       {loading ? (
         <Loading />

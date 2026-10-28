@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { listResearch } from '../services/researchService';
+import { importResearch, listResearch } from '../services/researchService';
 import type { Research } from '../services/types';
 import { formatDate } from '../lib/format';
 import { PageHeader } from '../components/PageHeader';
+import { ImportPreparedCard } from '../components/ImportPreparedCard';
+import { PREPARED_RESEARCH } from '../data/preparedContent';
 import { EmptyState, ErrorMessage, Loading, toMessage } from '../components/StatusMessage';
 import { IconFlask, IconLink, IconPlus, IconSearch } from '../components/Icons';
 
@@ -22,6 +24,14 @@ export default function ResearchListPage() {
       .catch((e: unknown) => setError(toMessage(e)))
       .finally(() => setLoading(false));
   }, []);
+
+  // 준비된 논문 중 아직 Firestore에 없는 것 (관리자에게만 불러오기 카드로 안내)
+  const missingPrepared = PREPARED_RESEARCH.filter((p) => !items.some((item) => item.title === p.title));
+
+  const handleImport = async () => {
+    await importResearch(missingPrepared);
+    setItems(await listResearch());
+  };
 
   // 모든 자료에 쓰인 태그를 모아 필터 버튼으로 보여줍니다.
   const allTags = useMemo(
@@ -47,6 +57,14 @@ export default function ResearchListPage() {
           </Link>
         )}
       />
+
+      {isAdmin && !loading && !error && (
+        <ImportPreparedCard
+          missingCount={missingPrepared.length}
+          description="Google Scholar 기준 최근 5년(2022~2026) 학술지 논문입니다. 한 번만 누르면 됩니다."
+          onImport={handleImport}
+        />
+      )}
 
       <div className="mb-6 space-y-4 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm">
         <div className="relative">
