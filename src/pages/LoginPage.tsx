@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { IS_TEST_LOGIN } from '../services/authService';
-import type { Role } from '../services/types';
 import { SITE_NAME } from '../lib/siteConfig';
 import { ErrorMessage, toMessage } from '../components/StatusMessage';
 import { Avatar } from '../components/Avatar';
@@ -18,11 +16,11 @@ export default function LoginPage() {
   // 로그인 전에 가려던 페이지가 있으면 그쪽으로 돌려보냅니다.
   const from = (location.state as { from?: string } | null)?.from ?? '/research';
 
-  const handleLogin = async (role: Role) => {
+  const handleLogin = async () => {
     setBusy(true);
     setError('');
     try {
-      await login(role);
+      await login();
       navigate(from, { replace: true });
     } catch (e) {
       setError(toMessage(e));
@@ -66,33 +64,21 @@ export default function LoginPage() {
           <p className="mt-1.5 text-sm text-slate-500">{SITE_NAME}에 오신 것을 환영합니다.</p>
         </div>
 
-        {IS_TEST_LOGIN && (
-          <p className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-800">
-            <strong>현재는 테스트용 로그인입니다.</strong><br />
-            버튼을 누르면 "테스트 교수" 계정으로 로그인됩니다.
-          </p>
-        )}
-
         {error && <ErrorMessage message={error} />}
 
         <button
-          onClick={() => handleLogin('admin')}
+          onClick={handleLogin}
           disabled={busy}
           className="flex w-full items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white px-4 py-3.5 font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50 hover:shadow active:scale-[0.99] disabled:opacity-50"
         >
           <GoogleLogo />
-          Google로 로그인
+          {busy ? '로그인 중…' : 'Google로 로그인'}
         </button>
 
-        {IS_TEST_LOGIN && (
-          <button
-            onClick={() => handleLogin('member')}
-            disabled={busy}
-            className="w-full text-center text-xs text-slate-500 underline-offset-2 hover:text-brand-600 hover:underline"
-          >
-            (테스트) 대학원생 권한으로 로그인해 보기
-          </button>
-        )}
+        <p className="text-center text-xs leading-relaxed text-slate-400">
+          교수님이 등록한 구글 계정만 로그인할 수 있습니다.
+        </p>
+
       </div>
     </div>
   );

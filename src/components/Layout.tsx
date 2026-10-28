@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { IS_TEST_LOGIN } from '../services/authService';
 import { FOOTER_NOTICE, LAB_INTRO, SITE_NAME } from '../lib/siteConfig';
 import { Avatar } from './Avatar';
 import { IconAlert, IconCapsule, IconClose, IconMenu } from './Icons';
@@ -41,12 +40,6 @@ export function Layout() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      {IS_TEST_LOGIN && user && (
-        <div className="bg-amber-50 px-4 py-1.5 text-center text-xs font-medium text-amber-800">
-          현재는 테스트용 로그인입니다 · 데이터는 이 브라우저에만 저장됩니다
-        </div>
-      )}
-
       <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/80 backdrop-blur-lg">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link to="/" className="flex min-w-0 items-center gap-2.5">

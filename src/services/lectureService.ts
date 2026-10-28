@@ -1,45 +1,52 @@
-// 수업 자료 읽기/쓰기 함수 모음 (localStorage 임시 구현)
+// 수업 자료 읽기/쓰기 함수 모음 (Firestore 'lectures' 컬렉션)
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  updateDoc,
+} from 'firebase/firestore';
+import { db } from '../lib/firebase';
 import { requireAdmin, requireUser } from './authService';
-import { KEYS, byNewest, newId, readList, writeList } from './storage';
+import { fromDoc } from './firestoreHelpers';
 import type { Lecture, LectureInput } from './types';
+
+const lecturesCol = collection(db, 'lectures');
 
 export async function listLectures(): Promise<Lecture[]> {
   await requireUser();
-  return readList<Lecture>(KEYS.lectures).sort(byNewest);
+  const snap = await getDocs(query(lecturesCol, orderBy('createdAt', 'desc')));
+  return snap.docs.map((d) => fromDoc<Lecture>(d));
 }
 
 export async function getLecture(id: string): Promise<Lecture | null> {
   await requireUser();
-  return readList<Lecture>(KEYS.lectures).find((item) => item.id === id) ?? null;
+  const snap = await getDoc(doc(lecturesCol, id));
+  return snap.exists() ? fromDoc<Lecture>(snap) : null;
 }
 
 export async function createLecture(input: LectureInput): Promise<Lecture> {
   const user = await requireAdmin();
-  const item: Lecture = {
+  const data: Omit<Lecture, 'id'> = {
     ...input,
-    id: newId(),
     authorId: user.uid,
     authorName: user.name,
     createdAt: new Date().toISOString(),
   };
-  writeList(KEYS.lectures, [...readList<Lecture>(KEYS.lectures), item]);
-  return item;
+  const ref = await addDoc(lecturesCol, data);
+  return { ...data, id: ref.id };
 }
 
 export async function updateLecture(id: string, input: LectureInput): Promise<void> {
   await requireAdmin();
-  const list = readList<Lecture>(KEYS.lectures);
-  if (!list.some((item) => item.id === id)) throw new Error('자료를 찾을 수 없습니다.');
-  writeList(
-    KEYS.lectures,
-    list.map((item) => (item.id === id ? { ...item, ...input } : item)),
-  );
+  await updateDoc(doc(lecturesCol, id), { ...input });
 }
 
 export async function deleteLecture(id: string): Promise<void> {
   await requireAdmin();
-  writeList(
-    KEYS.lectures,
-    readList<Lecture>(KEYS.lectures).filter((item) => item.id !== id),
-  );
+  await deleteDoc(doc(lecturesCol, id));
 }

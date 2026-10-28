@@ -1,13 +1,13 @@
 // 로그인 상태를 사이트 전체에서 함께 쓰기 위한 Context 입니다.
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
-import { getCurrentUser, signInWithGoogle, signOut } from '../services/authService';
-import type { Role, User } from '../services/types';
+import { signInWithGoogle, signOut, subscribeAuth } from '../services/authService';
+import type { User } from '../services/types';
 
 interface AuthContextValue {
   user: User | null;
   isAdmin: boolean;
   loading: boolean; // 처음 로그인 상태를 확인하는 중인지
-  login: (role?: Role) => Promise<void>;
+  login: () => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -17,14 +17,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getCurrentUser()
-      .then(setUser)
-      .finally(() => setLoading(false));
-  }, []);
+  // 새로고침하거나 다른 탭에서 로그아웃해도 로그인 상태가 자동으로 맞춰지도록 구독합니다.
+  useEffect(
+    () =>
+      subscribeAuth((nextUser) => {
+        setUser(nextUser);
+        setLoading(false);
+      }),
+    [],
+  );
 
-  const login = useCallback(async (role?: Role) => {
-    setUser(await signInWithGoogle(role));
+  const login = useCallback(async () => {
+    setUser(await signInWithGoogle());
   }, []);
 
   const logout = useCallback(async () => {
