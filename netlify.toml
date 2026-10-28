@@ -1,0 +1,11 @@
+# Netlify 배포 설정
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# 주소창에서 /research 등을 직접 열거나 새로고침해도 404가 나지 않도록
+# 모든 경로를 index.html로 보내고, 화면 전환은 React Router가 처리합니다.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
