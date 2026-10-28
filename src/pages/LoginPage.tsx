@@ -3,7 +3,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { IS_TEST_LOGIN } from '../services/authService';
 import type { Role } from '../services/types';
+import { SITE_NAME } from '../lib/siteConfig';
 import { ErrorMessage, toMessage } from '../components/StatusMessage';
+import { Avatar } from '../components/Avatar';
+import { GoogleLogo, IconArrowRight, IconCapsule, IconLock } from '../components/Icons';
 
 export default function LoginPage() {
   const { user, login } = useAuth();
@@ -31,39 +34,66 @@ export default function LoginPage() {
   if (user) {
     return (
       <div className="card mx-auto max-w-md text-center">
-        <p className="mb-4">{user.name} 님으로 로그인되어 있습니다.</p>
-        <Link to="/research" className="btn-primary">연구 자료 보러 가기</Link>
+        <div className="mb-4 flex justify-center"><Avatar name={user.name} /></div>
+        <p className="mb-6 text-slate-700"><strong>{user.name}</strong> 님으로 로그인되어 있습니다.</p>
+        <Link to="/research" className="btn-primary">연구 자료 보러 가기 <IconArrowRight className="h-4 w-4" /></Link>
       </div>
     );
   }
 
   return (
-    <div className="card mx-auto max-w-md space-y-4 text-center">
-      <h1 className="text-xl font-bold">로그인</h1>
-      <p className="text-sm text-slate-600">연구실 구성원만 자료를 볼 수 있습니다.</p>
-      {IS_TEST_LOGIN && (
-        <p className="rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-800">
-          현재는 테스트용 로그인입니다. 버튼을 누르면 "테스트 교수"로 로그인됩니다.
-        </p>
-      )}
-      {error && <ErrorMessage message={error} />}
-      <button
-        onClick={() => handleLogin('admin')}
-        disabled={busy}
-        className="flex w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-3 font-medium hover:bg-slate-50 disabled:opacity-50"
-      >
-        <span className="text-lg font-bold text-blue-600">G</span>
-        Google로 로그인
-      </button>
-      {IS_TEST_LOGIN && (
+    <div className="mx-auto max-w-4xl overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-xl shadow-slate-900/5 md:grid md:grid-cols-2">
+      {/* 왼쪽 브랜드 영역 */}
+      <div className="relative hidden flex-col justify-between bg-gradient-to-br from-brand-600 to-brand-900 p-10 text-white md:flex">
+        <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/25">
+          <IconCapsule className="h-6 w-6" />
+        </span>
+        <div>
+          <h2 className="text-2xl font-bold leading-snug">연구와 수업을<br />함께 나누는 공간</h2>
+          <p className="mt-3 text-sm leading-relaxed text-brand-100">
+            등록된 연구실 구성원만 자료를 열람하고 토론에 참여할 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      {/* 오른쪽 로그인 영역 */}
+      <div className="space-y-6 p-8 sm:p-10">
+        <div>
+          <div className="mb-4 inline-flex rounded-xl bg-brand-50 p-2.5 text-brand-600 md:hidden">
+            <IconLock />
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">로그인</h1>
+          <p className="mt-1.5 text-sm text-slate-500">{SITE_NAME}에 오신 것을 환영합니다.</p>
+        </div>
+
+        {IS_TEST_LOGIN && (
+          <p className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-800">
+            <strong>현재는 테스트용 로그인입니다.</strong><br />
+            버튼을 누르면 "테스트 교수" 계정으로 로그인됩니다.
+          </p>
+        )}
+
+        {error && <ErrorMessage message={error} />}
+
         <button
-          onClick={() => handleLogin('member')}
+          onClick={() => handleLogin('admin')}
           disabled={busy}
-          className="text-xs text-slate-500 underline"
+          className="flex w-full items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white px-4 py-3.5 font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50 hover:shadow active:scale-[0.99] disabled:opacity-50"
         >
-          (테스트) 대학원생 권한으로 로그인해 보기
+          <GoogleLogo />
+          Google로 로그인
         </button>
-      )}
+
+        {IS_TEST_LOGIN && (
+          <button
+            onClick={() => handleLogin('member')}
+            disabled={busy}
+            className="w-full text-center text-xs text-slate-500 underline-offset-2 hover:text-brand-600 hover:underline"
+          >
+            (테스트) 대학원생 권한으로 로그인해 보기
+          </button>
+        )}
+      </div>
     </div>
   );
 }

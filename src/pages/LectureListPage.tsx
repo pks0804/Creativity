@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { deleteLecture, listLectures } from '../services/lectureService';
 import type { Lecture } from '../services/types';
 import { formatDate } from '../lib/format';
 import { LinkList } from '../components/LinkList';
+import { PageHeader } from '../components/PageHeader';
 import { EmptyState, ErrorMessage, Loading, toMessage } from '../components/StatusMessage';
+import { IconBook, IconEdit, IconPlus, IconTrash } from '../components/Icons';
 
 export default function LectureListPage() {
   const { isAdmin } = useAuth();
@@ -20,6 +22,13 @@ export default function LectureListPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  // 과목별로 묶어서 보여주면 학기 중 자료 찾기가 쉬워집니다.
+  const groups = useMemo(() => {
+    const map = new Map<string, Lecture[]>();
+    for (const item of items) map.set(item.course, [...(map.get(item.course) ?? []), item]);
+    return Array.from(map.entries());
+  }, [items]);
+
   const handleDelete = async (id: string) => {
     if (!window.confirm('이 수업 자료를 삭제할까요?')) return;
     try {
@@ -31,37 +40,57 @@ export default function LectureListPage() {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h1 className="text-xl font-bold">수업 자료</h1>
-        {isAdmin && <Link to="/lectures/new" className="btn-primary">+ 수업 자료 등록</Link>}
-      </div>
+    <div>
+      <PageHeader
+        icon={<IconBook className="h-6 w-6" />}
+        title="수업 자료"
+        description="과목별 강의 슬라이드와 참고 자료 링크입니다."
+        action={isAdmin && (
+          <Link to="/lectures/new" className="btn-primary self-start sm:self-auto">
+            <IconPlus className="h-4 w-4" /> 수업 자료 등록
+          </Link>
+        )}
+      />
 
-      {error && <ErrorMessage message={error} />}
+      {error && <div className="mb-4"><ErrorMessage message={error} /></div>}
 
       {loading ? (
         <Loading />
       ) : items.length === 0 ? (
-        <EmptyState>아직 등록된 수업 자료가 없습니다.</EmptyState>
+        <EmptyState icon={<IconBook />}>아직 등록된 수업 자료가 없습니다.</EmptyState>
       ) : (
-        <ul className="space-y-3">
-          {items.map((item) => (
-            <li key={item.id} className="card space-y-2">
-              <div>
-                <span className="rounded bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700">{item.course}</span>
-                <p className="mt-1 font-semibold break-words">{item.title}</p>
-                <p className="text-xs text-slate-500">{item.authorName} · {formatDate(item.createdAt)}</p>
-              </div>
-              <LinkList links={item.links} />
-              {isAdmin && (
-                <div className="flex gap-2">
-                  <Link to={`/lectures/${item.id}/edit`} className="btn-secondary">수정</Link>
-                  <button onClick={() => handleDelete(item.id)} className="btn-danger">삭제</button>
-                </div>
-              )}
-            </li>
+        <div className="space-y-10">
+          {groups.map(([course, lectures]) => (
+            <section key={course}>
+              <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900">
+                <span className="h-5 w-1.5 rounded-full bg-brand-500" />
+                {course}
+                <span className="text-sm font-medium text-slate-400">{lectures.length}</span>
+              </h2>
+              <ul className="grid gap-4 md:grid-cols-2">
+                {lectures.map((item) => (
+                  <li key={item.id} className="card flex flex-col gap-4">
+                    <div>
+                      <h3 className="break-words text-base font-bold text-slate-900">{item.title}</h3>
+                      <p className="mt-1 text-xs text-slate-400">{item.authorName} · {formatDate(item.createdAt)}</p>
+                    </div>
+                    <div className="flex-1"><LinkList links={item.links} /></div>
+                    {isAdmin && (
+                      <div className="flex gap-2 border-t border-slate-100 pt-4">
+                        <Link to={`/lectures/${item.id}/edit`} className="btn-secondary px-3 py-1.5 text-xs">
+                          <IconEdit className="h-3.5 w-3.5" /> 수정
+                        </Link>
+                        <button onClick={() => handleDelete(item.id)} className="btn-danger px-3 py-1.5 text-xs">
+                          <IconTrash className="h-3.5 w-3.5" /> 삭제
+                        </button>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

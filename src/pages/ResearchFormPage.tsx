@@ -66,8 +66,11 @@ export default function ResearchFormPage() {
   if (loading) return <Loading />;
 
   return (
-    <form onSubmit={handleSubmit} className="card space-y-4">
-      <h1 className="text-xl font-bold">{isEdit ? '연구 자료 수정' : '연구 자료 등록'}</h1>
+    <form onSubmit={handleSubmit} className="card mx-auto max-w-3xl space-y-6 sm:p-10">
+      <div className="border-b border-slate-100 pb-5">
+        <h1 className="page-title">{isEdit ? '연구 자료 수정' : '연구 자료 등록'}</h1>
+        <p className="mt-1 text-sm text-slate-500">* 표시는 필수 항목입니다.</p>
+      </div>
 
       <div>
         <label className="label" htmlFor="title">제목 *</label>
@@ -97,7 +100,7 @@ export default function ResearchFormPage() {
 
       {error && <ErrorMessage message={error} />}
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 border-t border-slate-100 pt-6">
         <button type="submit" className="btn-primary" disabled={saving}>
           {saving ? '저장 중…' : isEdit ? '수정 완료' : '등록하기'}
         </button>
