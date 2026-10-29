@@ -109,6 +109,56 @@ export const IconLink = (p: IconProps) => (
   </Base>
 );
 
+export const IconUsers = (p: IconProps) => (
+  <Base {...p}>
+    <circle cx="9" cy="8" r="3.5" />
+    <path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8" />
+  </Base>
+);
+export const IconPhoto = (p: IconProps) => (
+  <Base {...p}>
+    <rect x="3" y="4" width="18" height="16" rx="2" />
+    <circle cx="8.5" cy="9.5" r="1.5" />
+    <path d="m21 16-5-5-9 9" />
+  </Base>
+);
+export const IconMail = (p: IconProps) => (
+  <Base {...p}>
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <path d="m3 7 9 6 9-6" />
+  </Base>
+);
+export const IconPhone = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
+  </Base>
+);
+export const IconPin = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" />
+    <circle cx="12" cy="9.5" r="2.5" />
+  </Base>
+);
+export const IconDoc = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8Z" />
+    <path d="M14 3v5h5M9 13h6M9 17h6" />
+  </Base>
+);
+export const IconTarget = (p: IconProps) => (
+  <Base {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <circle cx="12" cy="12" r="5" />
+    <circle cx="12" cy="12" r="1" />
+  </Base>
+);
+export const IconUserPlus = (p: IconProps) => (
+  <Base {...p}>
+    <circle cx="10" cy="8" r="4" />
+    <path d="M3 21a7 7 0 0 1 14 0M19 8v6M16 11h6" />
+  </Base>
+);
+
 // 구글 로그인 버튼용 공식 색상 "G" 로고
 export function GoogleLogo() {
   return (

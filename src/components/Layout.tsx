@@ -3,16 +3,23 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-do
 import { useAuth } from '../contexts/AuthContext';
 import { FOOTER_NOTICE, LAB_INTRO, SITE_NAME } from '../lib/siteConfig';
 import { Avatar } from './Avatar';
-import { IconAlert, IconCapsule, IconClose, IconMenu } from './Icons';
+import { IconAlert, IconCapsule, IconClose, IconMail, IconMenu, IconPhone, IconPin } from './Icons';
+import { CONTACT, LAB } from '../content/labInfo';
 
+// 상단 메뉴. 앞쪽은 연구실 소개(누구나), 뒤쪽은 자료실(열람은 누구나, 링크·댓글은 로그인)
 const NAV_ITEMS = [
   { to: '/', label: '홈', end: true },
+  { to: '/areas', label: '연구 분야', end: false },
+  { to: '/publications', label: '논문', end: false },
+  { to: '/people', label: '구성원', end: false },
+  { to: '/gallery', label: '사진', end: false },
+  { to: '/join', label: '지원 안내', end: false },
   { to: '/research', label: '연구 자료', end: false },
   { to: '/lectures', label: '수업 자료', end: false },
 ];
 
 const desktopNavClass = ({ isActive }: { isActive: boolean }) =>
-  `rounded-lg px-3.5 py-2 text-sm font-medium transition ${
+  `whitespace-nowrap rounded-lg px-2.5 py-2 text-sm font-medium transition xl:px-3 ${
     isActive ? 'bg-brand-50 text-brand-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
   }`;
 
@@ -50,18 +57,18 @@ export function Layout() {
           </Link>
 
           {/* 넓은 화면용 메뉴 */}
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-0.5 lg:flex">
             {NAV_ITEMS.map((item) => (
               <NavLink key={item.to} to={item.to} end={item.end} className={desktopNavClass}>
                 {item.label}
               </NavLink>
             ))}
-            <span className="mx-2 h-6 w-px bg-slate-200" />
+            <span className="mx-1.5 h-6 w-px bg-slate-200" />
             {user ? (
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2" title={user.name}>
                   <Avatar name={user.name} size="sm" />
-                  <div className="leading-tight">
+                  <div className="hidden leading-tight xl:block">
                     <p className="text-sm font-semibold text-slate-800">{user.name}</p>
                     <p className="text-[11px] text-slate-500">{user.role === 'admin' ? '교수 · 관리자' : '대학원생'}</p>
                   </div>
@@ -69,13 +76,13 @@ export function Layout() {
                 <button onClick={handleLogout} className="btn-secondary px-3 py-1.5 text-xs">로그아웃</button>
               </div>
             ) : (
-              <Link to="/login" className="btn-primary py-2">로그인</Link>
+              <Link to="/login" className="btn-primary whitespace-nowrap py-2">로그인</Link>
             )}
           </nav>
 
           {/* 모바일용 메뉴 버튼 */}
           <button
-            className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 md:hidden"
+            className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 lg:hidden"
             onClick={() => setMenuOpen((open) => !open)}
             aria-label={menuOpen ? '메뉴 닫기' : '메뉴 열기'}
             aria-expanded={menuOpen}
@@ -85,7 +92,7 @@ export function Layout() {
         </div>
 
         {menuOpen && (
-          <nav className="border-t border-slate-100 bg-white px-4 pb-4 pt-2 md:hidden">
+          <nav className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-slate-100 bg-white px-4 pb-4 pt-2 lg:hidden">
             {NAV_ITEMS.map((item) => (
               <NavLink key={item.to} to={item.to} end={item.end} className={mobileNavClass}>
                 {item.label}
@@ -114,15 +121,25 @@ export function Layout() {
       </main>
 
       <footer className="mt-10 bg-brand-950 text-brand-100">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-          <div className="flex items-start gap-3 rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-sm text-amber-100">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+          <div className="grid gap-8 md:grid-cols-[1fr_1.4fr]">
+            <div>
+              <p className="text-lg font-bold text-white">{LAB.shortName}</p>
+              <p className="text-sm text-brand-300">{LAB.fullName}</p>
+              <p className="mt-1 text-sm text-brand-300">{LAB.college}, {LAB.university}</p>
+            </div>
+            <ul className="space-y-2 text-sm text-brand-200">
+              <li className="font-semibold text-white">{CONTACT.piName}</li>
+              <li className="flex items-start gap-2"><IconMail className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" /><a href={`mailto:${CONTACT.email}`} className="hover:text-white">{CONTACT.email}</a></li>
+              <li className="flex items-start gap-2"><IconPhone className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />Office: {CONTACT.office}</li>
+              <li className="flex items-start gap-2"><IconPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />{CONTACT.address}</li>
+            </ul>
+          </div>
+          <div className="mt-8 flex items-start gap-3 rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-sm text-amber-100">
             <IconAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
             <p>{FOOTER_NOTICE}</p>
           </div>
-          <div className="mt-6 flex flex-col gap-1 text-xs text-brand-300 sm:flex-row sm:justify-between">
-            <span>{LAB_INTRO.title}</span>
-            <span>© {new Date().getFullYear()} {SITE_NAME}</span>
-          </div>
+          <p className="mt-6 text-xs text-brand-400">© {new Date().getFullYear()} {LAB_INTRO.title}</p>
         </div>
       </footer>
     </div>

@@ -12,20 +12,18 @@ import {
   writeBatch,
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { requireAdmin, requireUser } from './authService';
+import { requireAdmin } from './authService';
 import { fromDoc } from './firestoreHelpers';
 import type { Lecture, LectureInput } from './types';
 
 const lecturesCol = collection(db, 'lectures');
 
 export async function listLectures(): Promise<Lecture[]> {
-  await requireUser();
   const snap = await getDocs(query(lecturesCol, orderBy('createdAt', 'desc')));
   return snap.docs.map((d) => fromDoc<Lecture>(d));
 }
 
 export async function getLecture(id: string): Promise<Lecture | null> {
-  await requireUser();
   const snap = await getDoc(doc(lecturesCol, id));
   return snap.exists() ? fromDoc<Lecture>(snap) : null;
 }

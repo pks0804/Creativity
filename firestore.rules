@@ -1,14 +1,14 @@
 // =====================================================================
-// Firestore 보안 규칙 초안 (2단계용 — 아직 적용하지 않았습니다)
+// Firestore 보안 규칙 (Firebase 콘솔 → Firestore → 규칙 탭에 그대로 붙여넣고 "게시")
 //
 // 이 파일은 "누가 어떤 데이터를 읽고 쓸 수 있는지"를 Firebase 서버가 직접 검사하는 규칙입니다.
 // 화면에서 버튼을 숨기는 것만으로는 막을 수 없는 접근을 여기서 막습니다.
 //
 // 규칙 요약
-//  1) 로그인한 사람 중 allowedEmails 목록에 이메일이 등록된 사람만 읽을 수 있습니다.
-//  2) 연구 자료·수업 자료는 admin(교수)만 등록·수정·삭제할 수 있습니다.
-//  3) 댓글은 member(대학원생)도 "본인 명의로만" 작성할 수 있습니다.
-//     댓글 삭제는 본인 댓글이거나 admin일 때만 가능합니다.
+//  1) 연구 자료·수업 자료는 누구나(로그인 없이) 읽을 수 있습니다.
+//     등록·수정·삭제는 admin(교수)만 할 수 있습니다.
+//  2) 댓글(토론)은 allowedEmails 명단에 등록된 구성원만 읽고 쓸 수 있습니다.
+//     작성은 "본인 명의로만", 삭제는 본인 댓글이거나 admin일 때만 가능합니다.
 //
 // 준비 방법: Firestore에 allowedEmails 컬렉션을 만들고,
 //   문서 ID = 구성원의 구글 이메일(소문자),  필드 role = "admin" 또는 "member"
@@ -48,12 +48,12 @@ service cloud.firestore {
     }
 
     match /research/{id} {
-      allow read: if isMember();
+      allow read: if true;
       allow create, update, delete: if isAdmin();
     }
 
     match /lectures/{id} {
-      allow read: if isMember();
+      allow read: if true;
       allow create, update, delete: if isAdmin();
     }
 

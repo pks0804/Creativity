@@ -49,7 +49,7 @@ export default function LoginPage() {
         <div>
           <h2 className="text-2xl font-bold leading-snug">연구와 수업을<br />함께 나누는 공간</h2>
           <p className="mt-3 text-sm leading-relaxed text-brand-100">
-            등록된 연구실 구성원만 자료를 열람하고 토론에 참여할 수 있습니다.
+            홈페이지는 누구나 볼 수 있습니다. 등록된 연구실 구성원은 로그인하면 논문 원문 링크를 열고 토론에 참여할 수 있습니다.
           </p>
         </div>
       </div>

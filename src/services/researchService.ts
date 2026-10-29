@@ -1,4 +1,5 @@
 // 연구 자료 읽기/쓰기 함수 모음 (Firestore 'research' 컬렉션)
+// 읽기는 누구나(로그인 불필요), 쓰기는 관리자만 가능합니다. (firestore.rules 와 같은 규칙)
 import {
   addDoc,
   collection,
@@ -12,7 +13,7 @@ import {
   writeBatch,
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { requireAdmin, requireUser } from './authService';
+import { requireAdmin } from './authService';
 import { deleteCommentsOfResearch } from './commentService';
 import { fromDoc } from './firestoreHelpers';
 import type { Research, ResearchInput } from './types';
@@ -20,7 +21,6 @@ import type { Research, ResearchInput } from './types';
 const researchCol = collection(db, 'research');
 
 export async function listResearch(): Promise<Research[]> {
-  await requireUser();
   const snap = await getDocs(query(researchCol, orderBy('createdAt', 'desc')));
   return snap.docs.map((d) => fromDoc<Research>(d));
 }
@@ -31,7 +31,6 @@ export async function listRecentResearch(count = 5): Promise<Research[]> {
 }
 
 export async function getResearch(id: string): Promise<Research | null> {
-  await requireUser();
   const snap = await getDoc(doc(researchCol, id));
   return snap.exists() ? fromDoc<Research>(snap) : null;
 }

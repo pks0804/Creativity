@@ -4,7 +4,7 @@
 
 > **현재 단계(2단계)**: Firebase에 연결되어 있습니다.
 > 구글 계정으로 로그인하고, 자료와 댓글은 Firestore(구글 클라우드 데이터베이스)에 저장되어 구성원 모두가 함께 봅니다.
-> **교수님이 구성원 명단(`allowedEmails`)에 등록한 구글 계정만** 로그인할 수 있습니다.
+> 홈페이지는 **누구나** 볼 수 있고, 논문 원문 링크 열기와 토론(댓글)은 **교수님이 구성원 명단(`allowedEmails`)에 등록한 구글 계정**으로 로그인해야 합니다.
 
 ⚠️ 환자 정보 등 개인식별정보와 미공개 민감 데이터는 업로드하지 마세요. 파일은 Google Drive 등에 올리고 **링크만** 등록합니다.
 
@@ -17,6 +17,12 @@
 | 홈 화면 연구실 소개 문구, 사이트 이름 | `src/lib/siteConfig.ts` |
 | 구성원 추가·삭제, 역할 변경 | Firebase 콘솔 → Firestore → `allowedEmails` (아래 ⑤ 참고) |
 | "한 번에 불러오기"로 넣는 준비 자료(논문 목록) | `src/data/preparedContent.ts` |
+| 연락처(이메일·전화·주소) | `src/content/labInfo.ts` |
+| 홈 소개 글(Welcome, Expertise, Focus Areas) | `src/content/homeContent.ts` |
+| 연구 분야 페이지 | `src/content/researchAreas.ts` |
+| 논문 목록(Publications) | `src/content/publications.ts` (해당 연도 맨 앞에 한 줄 추가) |
+| 구성원·사진 페이지 | `src/content/people.ts` |
+| 지원 안내(Join us) | `src/content/joinUs.ts` |
 | 사이트 대표 색상(brand) | `src/index.css` 맨 위 `@theme` 부분 |
 
 > 글꼴은 무료 한글 글꼴 **Pretendard**를 인터넷(CDN)에서 불러옵니다. 별도 설치는 필요 없습니다.
@@ -32,15 +38,34 @@
 
 ## 권한
 
-| | 비로그인 | 대학원생(member) | 교수(admin) |
+| | 비로그인 방문자 | 대학원생(member) | 교수(admin) |
 |---|---|---|---|
-| 홈·로그인 페이지 | ✅ | ✅ | ✅ |
-| 자료 열람 | ❌ (로그인으로 이동) | ✅ | ✅ |
-| 댓글 작성 | ❌ | ✅ | ✅ |
+| 모든 페이지 열람 (홈·연구 분야·논문·구성원·사진·지원 안내·연구 자료·수업 자료) | ✅ | ✅ | ✅ |
+| 논문·자료 원문 링크 열기 | 🔒 로그인 안내 | ✅ | ✅ |
+| 토론(댓글) 보기·작성 | 🔒 로그인 안내 | ✅ | ✅ |
 | 댓글 삭제 | ❌ | 본인 것만 | 모두 |
 | 연구·수업 자료 등록/수정/삭제 | ❌ | ❌ | ✅ |
 
 이 권한은 화면에서 버튼을 숨기는 것과 별개로, `firestore.rules` 보안 규칙이 서버에서 한 번 더 막습니다.
+(논문 링크 잠금은 화면에서만 적용됩니다. DOI 주소 자체는 공개 정보이기 때문입니다.)
+
+## 사진·그림 넣는 방법
+
+사진은 `public/images/` 폴더에 **아래 파일 이름 그대로** 넣으면 자동으로 표시됩니다. 파일이 없는 자리는 "이미지 준비 중"으로 보입니다.
+
+| 위치 | 파일 이름 |
+|---|---|
+| 홈 – Welcome 옆 대표 사진 | `home-main.jpg` |
+| 연구 분야 – 상단 그림 2장 | `research-overview.jpg`, `research-examples.jpg` |
+| 연구 분야 – 대표 논문 그림 | `toc-bridged-protac.jpg`, `toc-g9a-covalent.jpg` |
+| 구성원 – 교수 사진 | `pi.jpg` |
+| 구성원 – 단체 사진 3장 | `members-2025-spring.jpg`, `members-2025-spring-jin.jpg`, `members-2025-may.jpg` |
+| 사진 – 2025 Spring 앨범 | `gallery-2025-jin-1.jpg` ~ `gallery-2025-jin-3.jpg` |
+| 사진 – 2024 Lab 앨범 | `gallery-2024-lab-1.jpg` ~ `gallery-2024-lab-3.jpg` |
+
+- **방법 1 (가장 쉬움):** Claude Code 대화창에 사진을 첨부하고 "이건 pi.jpg" 처럼 어디에 쓸지 알려 주세요.
+- **방법 2:** GitHub 저장소 → `public/images` 폴더 → **Add file → Upload files** 로 위 이름의 파일을 올리면 자동 배포됩니다.
+- 사진 한 장은 1MB 이하(가로 1600px 정도)를 권장합니다. 저장소가 공개 상태이므로 학생 사진은 본인 동의를 받고 올려 주세요.
 
 ---
 

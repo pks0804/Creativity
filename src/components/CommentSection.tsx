@@ -1,5 +1,6 @@
 // 연구 자료 상세 페이지 아래의 토론(댓글) 영역
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import {
   MAX_COMMENT_LENGTH,
@@ -12,10 +13,11 @@ import type { Comment } from '../services/types';
 import { formatDateTime } from '../lib/format';
 import { Avatar } from './Avatar';
 import { EmptyState, ErrorMessage, Loading, toMessage } from './StatusMessage';
-import { IconChat } from './Icons';
+import { IconChat, IconLock } from './Icons';
 
 export function CommentSection({ researchId }: { researchId: string }) {
   const { user } = useAuth();
+  const location = useLocation();
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -32,9 +34,25 @@ export function CommentSection({ researchId }: { researchId: string }) {
     }
   }, [researchId]);
 
+  // 토론 내용은 연구실 구성원 전용이라 로그인했을 때만 불러옵니다.
   useEffect(() => {
-    load();
-  }, [load]);
+    if (user) load();
+  }, [load, user]);
+
+  if (!user) {
+    return (
+      <section className="space-y-4">
+        <h2 className="flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900">
+          <IconChat className="h-5 w-5 text-brand-600" />
+          토론
+        </h2>
+        <EmptyState icon={<IconLock />}>
+          <p className="mb-4">토론은 연구실 구성원 전용입니다. 로그인하면 댓글을 보고 남길 수 있습니다.</p>
+          <Link to="/login" state={{ from: location.pathname }} className="btn-primary">로그인하기</Link>
+        </EmptyState>
+      </section>
+    );
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
