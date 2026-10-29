@@ -57,7 +57,7 @@
 |---|---|
 | 홈 – Welcome 옆 대표 사진 | `home-main.jpg` |
 | 연구 분야 – 상단 그림 2장 | `research-overview.jpg`, `research-examples.jpg` |
-| 연구 분야 – 대표 논문 그림 | `toc-bridged-protac.jpg`, `toc-g9a-covalent.jpg` |
+| 연구 분야 – 대표 논문 그림 | `toc-bridged-protac.jpg`, `toc-g9a-covalent.jpg`, `toc-otub1-biophostac.jpg` |
 | 구성원 – 교수 사진 | `pi.jpg` |
 | 구성원 – 단체 사진 3장 | `members-2025-spring.jpg`, `members-2025-spring-jin.jpg`, `members-2025-may.jpg` |
 | 사진 – 2025 Spring 앨범 | `gallery-2025-jin-1.jpg` ~ `gallery-2025-jin-3.jpg` |

@@ -75,6 +75,16 @@ export const RESEARCH_AREAS: ResearchArea[] = [
     paragraphs: [
       'Ultimately, our lab aims to broaden the scope of heterobifunctional technology for fine-tuning the PTM status of the disease-related proteins we target. Leveraging our expertise in PROTACs, our team will engineer heterobifunctional compounds capable of commandeering the PTM process of the designated protein. These innovative molecules hold the potential to usher in a new era, allowing for a comprehensive exploration of the intricate functions associated with the specific PTM status of our target proteins.',
     ],
+    featured: [
+      {
+        title: 'Selective Modulation of OTUB1 Noncanonical Function via a bioPhosTAC Strategy',
+        abstract:
+          'OTUB1 is a canonical deubiquitinating enzyme that hydrolyzes K48-linked polyubiquitin chains as well as a regulator of several noncanonical pathways controlled by site-specific post-translational modifications. Phosphorylation at tyrosine 26 (Y26) of OTUB1 recently emerged as a key regulatory switch that stabilizes Raptor (central component of mTORC1), thereby enhancing mTORC1 activity and influencing cell growth and metabolism. Selective modulation of Y26 phosphorylation offers an opportunity to elucidate the noncanonical roles of OTUB1 without perturbing its catalytic activity. However, genetic or kinase inhibition strategies lack the specificity to separate these functions. Here, a tyrosine-specific targeted protein dephosphorylation strategy was developed by recruiting the protein tyrosine phosphatase, SHP2, to OTUB1 via a peptide-based bifunctional molecule, termed bioPhosTAC. This bioPhosTAC comprises an OTUB1-binding peptide linked to an SHP2-binding peptide through a short linker, enabling proximity-induced Y26 dephosphorylation. The bioPhosTAC selectively reduced OTUB1 Y26 phosphorylation, resulting in Raptor-related mitochondrial fusion and Bim upregulation. This study represents the first demonstration of a peptide-based SHP2-mediated bioPhosTAC system for selective tyrosine dephosphorylation through induced proximity. These findings provide a new chemical biology tool for dissecting the noncanonical roles of OTUB1 and broaden the scope of targeted protein dephosphorylation strategies to tyrosine phosphorylation, potentially allowing precise modulation of phospho-dependent signaling.',
+        reference: 'Seo SU, …, Park KS, Kwon TK. Adv. Sci. 2026, e77265.',
+        doi: '10.1002/advs.77265',
+        image: '/images/toc-otub1-biophostac.jpg',
+      },
+    ],
     examples: [
       { label: 'Deubiquitination', url: 'https://www.nature.com/articles/s41589-022-00971-2' },
       { label: 'Acetylation', url: 'https://pubs.acs.org/doi/10.1021/jacs.3c04640' },

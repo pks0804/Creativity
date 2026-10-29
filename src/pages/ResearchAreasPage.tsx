@@ -66,7 +66,9 @@ export default function ResearchAreasPage() {
 
               {area.examples && (
                 <div>
-                  <p className="mb-3 text-sm font-semibold text-slate-700">Examples of PTM modulators</p>
+                  <p className="mb-3 text-sm font-semibold text-slate-700">
+                    {area.featured ? 'Other examples of PTM modulators' : 'Examples of PTM modulators'}
+                  </p>
                   <ul className="flex flex-wrap gap-2">
                     {area.examples.map((example, i) => (
                       <li key={example.url}>
