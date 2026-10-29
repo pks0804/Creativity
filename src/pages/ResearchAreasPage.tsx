@@ -53,8 +53,13 @@ export default function ResearchAreasPage() {
               )}
 
               {area.featured?.map((paper) => (
-                <article key={paper.doi} className="grid gap-5 rounded-2xl bg-slate-50 p-4 sm:p-6 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-                  {paper.image && <Photo src={paper.image} alt={paper.title} className="aspect-[4/3] bg-white object-contain" />}
+                <article key={paper.doi} className="space-y-5 rounded-2xl bg-slate-50 p-4 sm:p-6">
+                  {/* 논문 그림은 가로로 긴 것도 있어 위쪽에 넓게, 원래 비율 그대로 보여줍니다. */}
+                  {paper.image && (
+                    <div className="mx-auto w-full max-w-xl rounded-2xl bg-white p-2 shadow-sm">
+                      <Photo src={paper.image} alt={paper.title} className="h-auto bg-white object-contain" />
+                    </div>
+                  )}
                   <div className="min-w-0 space-y-3">
                     <h3 className="font-bold leading-snug text-slate-900">{paper.title}</h3>
                     <p className="text-sm leading-relaxed text-slate-600">{paper.abstract}</p>
