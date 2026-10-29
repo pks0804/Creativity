@@ -11,11 +11,18 @@ export default function GalleryPage() {
       {GALLERY.map((album) => (
         <section key={album.title}>
           <SectionHeading title={album.title} />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {album.photos.map((src, i) => (
-              <Photo key={src} src={src} alt={`${album.title} ${i + 1}`} />
-            ))}
-          </div>
+          {album.photos.length === 1 ? (
+            // 사진이 한 장이면 세로 사진도 잘리지 않게 원래 비율(세로형)로 크게 보여줍니다.
+            <div className="max-w-sm">
+              <Photo src={album.photos[0]} alt={album.title} className="aspect-[2/3]" />
+            </div>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {album.photos.map((src, i) => (
+                <Photo key={src} src={src} alt={`${album.title} ${i + 1}`} />
+              ))}
+            </div>
+          )}
         </section>
       ))}
     </div>

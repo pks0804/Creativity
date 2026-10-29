@@ -59,7 +59,7 @@
 | 구성원 – 교수 사진 | `pi.jpg` |
 | 구성원 – 단체 사진 3장 | `members-2025-spring.jpg`, `members-2025-spring-jin.jpg`, `members-2025-may.jpg` |
 | 사진 – 2025 Spring 앨범 | `gallery-2025-jin-1.jpg` ~ `gallery-2025-jin-3.jpg` |
-| 사진 – 2024 Lab 앨범 | `gallery-2024-lab-1.jpg` ~ `gallery-2024-lab-3.jpg` |
+| 사진 – 2024 Group Photo | `gallery-2024-group.jpg` |
 
 - **방법 1 (가장 쉬움):** Claude Code 대화창에 사진을 첨부하고 "이건 pi.jpg" 처럼 어디에 쓸지 알려 주세요.
 - **방법 2:** GitHub 저장소 → `public/images` 폴더 → **Add file → Upload files** 로 위 이름의 파일을 올리면 자동 배포됩니다.
