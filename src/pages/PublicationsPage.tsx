@@ -39,8 +39,8 @@ export default function PublicationsPage() {
     <div>
       <PageHeader
         icon={<IconDoc className="h-6 w-6" />}
-        title="논문"
-        description={`Publications · 총 ${total}편 (* 공동 제1저자, # 교신저자)`}
+        title="Publications"
+        description={`총 ${total}편 (* 공동 제1저자, # 교신저자)`}
         action={
           <a href={CONTACT.scholar} target="_blank" rel="noopener noreferrer" className="btn-secondary self-start sm:self-auto">
             Google Scholar <IconExternal className="h-4 w-4" />

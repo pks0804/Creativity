@@ -6,7 +6,7 @@ import { IconMail, IconPin, IconUserPlus } from '../components/Icons';
 export default function JoinUsPage() {
   return (
     <div className="space-y-8">
-      <PageHeader icon={<IconUserPlus className="h-6 w-6" />} title="지원 안내" description="Join Us · 대학원생·학부연구생 모집" />
+      <PageHeader icon={<IconUserPlus className="h-6 w-6" />} title="Join Us" description="대학원생·학부연구생 모집 안내" />
 
       <section className="card space-y-4 text-[15px] leading-8 text-slate-700">
         <h2 className="text-lg font-bold text-slate-900">연구실 소개 및 모집 안내</h2>

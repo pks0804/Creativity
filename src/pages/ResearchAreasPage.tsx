@@ -10,7 +10,7 @@ export default function ResearchAreasPage() {
     <div>
       <PageHeader
         icon={<IconTarget className="h-6 w-6" />}
-        title="연구 분야"
+        title="Research"
         description="Protein Modulating Drug Discovery — PROTAC, 공유결합 억제제, 번역 후 변형(PTM) 조절제"
       />
 

@@ -8,7 +8,7 @@ import { IconExternal, IconMail, IconPin, IconUsers } from '../components/Icons'
 export default function PeoplePage() {
   return (
     <div className="space-y-14">
-      <PageHeader icon={<IconUsers className="h-6 w-6" />} title="구성원" description="People · 지도교수와 연구실 구성원" />
+      <PageHeader icon={<IconUsers className="h-6 w-6" />} title="People" description="지도교수와 연구실 구성원" />
 
       {/* 지도교수 */}
       <section className="card grid gap-8 md:grid-cols-[16rem_1fr]">

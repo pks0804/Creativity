@@ -8,13 +8,13 @@ import { CONTACT, LAB } from '../content/labInfo';
 
 // 상단 메뉴. 모두 누구나 볼 수 있고, 논문 원문 링크는 로그인해야 열립니다.
 const NAV_ITEMS = [
-  { to: '/', label: '홈', end: true },
-  { to: '/areas', label: '연구 분야', end: false },
-  { to: '/publications', label: '논문', end: false },
-  { to: '/people', label: '구성원', end: false },
-  { to: '/gallery', label: '사진', end: false },
-  { to: '/join', label: '지원 안내', end: false },
-  { to: '/papers', label: '최근 논문', end: false },
+  { to: '/', label: 'Home', end: true },
+  { to: '/areas', label: 'Research', end: false },
+  { to: '/publications', label: 'Publications', end: false },
+  { to: '/people', label: 'People', end: false },
+  { to: '/gallery', label: 'Group Photo', end: false },
+  { to: '/join', label: 'Join Us', end: false },
+  { to: '/papers', label: 'Recent Papers', end: false },
 ];
 
 const desktopNavClass = ({ isActive }: { isActive: boolean }) =>
@@ -72,10 +72,10 @@ export function Layout() {
                     <p className="text-[11px] text-slate-500">{user.role === 'admin' ? '교수 · 관리자' : '대학원생'}</p>
                   </div>
                 </div>
-                <button onClick={handleLogout} className="btn-secondary px-3 py-1.5 text-xs">로그아웃</button>
+                <button onClick={handleLogout} className="btn-secondary px-3 py-1.5 text-xs">Logout</button>
               </div>
             ) : (
-              <Link to="/login" className="btn-primary whitespace-nowrap py-2">로그인</Link>
+              <Link to="/login" className="btn-primary whitespace-nowrap py-2">Login</Link>
             )}
           </nav>
 
@@ -105,10 +105,10 @@ export function Layout() {
                     <span className="text-sm font-semibold">{user.name}</span>
                     <span className="text-xs text-slate-500">{user.role === 'admin' ? '교수' : '대학원생'}</span>
                   </div>
-                  <button onClick={handleLogout} className="btn-secondary px-3 py-1.5 text-xs">로그아웃</button>
+                  <button onClick={handleLogout} className="btn-secondary px-3 py-1.5 text-xs">Logout</button>
                 </div>
               ) : (
-                <Link to="/login" className="btn-primary w-full">로그인</Link>
+                <Link to="/login" className="btn-primary w-full">Login</Link>
               )}
             </div>
           </nav>

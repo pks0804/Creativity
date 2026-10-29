@@ -52,7 +52,7 @@ export default function LectureListPage() {
     <div>
       <PageHeader
         icon={<IconBook className="h-6 w-6" />}
-        title="최근 논문"
+        title="Recent Papers"
         description="표적 단백질 분해(TPD)·PROTAC·유도 근접 분야의 주목할 만한 최근 논문입니다."
         action={isAdmin && (
           <Link to="/papers/new" className="btn-primary self-start sm:self-auto">
