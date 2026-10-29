@@ -19,8 +19,8 @@ export interface ResearchArea {
 }
 
 export const RESEARCH_OVERVIEW_IMAGES = [
-  { src: '/images/research-overview.jpg', caption: 'Protein Modulating Drug Discovery' },
-  { src: '/images/research-examples.jpg', caption: 'Protein Modulating Drug Examples' },
+  { src: '/images/research-protac.png', caption: 'PROTAC' },
+  { src: '/images/research-phostac.png', caption: 'PhosTAC' },
 ];
 
 export const RESEARCH_AREAS: ResearchArea[] = [

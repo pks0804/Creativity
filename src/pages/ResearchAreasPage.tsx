@@ -18,7 +18,7 @@ export default function ResearchAreasPage() {
       <div className="mb-12 grid gap-4 md:grid-cols-2">
         {RESEARCH_OVERVIEW_IMAGES.map((image) => (
           <figure key={image.src} className="card space-y-3 p-4 sm:p-4">
-            <Photo src={image.src} alt={image.caption} className="aspect-[16/10] object-contain" />
+            <Photo src={image.src} alt={`${image.caption} 작동 원리 그림`} className="aspect-square bg-white object-contain" />
             <figcaption className="text-center text-sm font-semibold text-slate-700">{image.caption}</figcaption>
           </figure>
         ))}
