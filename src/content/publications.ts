@@ -1,5 +1,12 @@
 // 기존 홈페이지(Google Sites) Publication 페이지에서 옮겨 온 전체 논문 목록입니다.
 // 새 논문은 해당 연도 배열 맨 앞에 한 줄(문자열)로 추가하면 됩니다. 연도가 없으면 { year, items } 묶음을 새로 만드세요.
+//
+// [저자 표기 규칙 — 새 논문을 넣을 때 꼭 지켜 주세요]
+//  - 제1저자(공동 제1저자 포함): 이름 바로 뒤에 *   예) Park KS*
+//  - 교신저자(공동 교신저자 포함): 이름 바로 뒤에 #  예) Park KS#
+//  - 제1저자이면서 교신저자: *# 를 함께          예) Park KS*#
+//  - 교수님 이름(Park KS 등)은 화면에서 자동으로 굵게 표시됩니다.
+//  - Scholar·Crossref에는 * / # 정보가 없으므로, 새 논문은 교수님께 저자 역할을 확인한 뒤 표기합니다.
 export interface PublicationYear {
   year: number;
   items: string[];
@@ -9,9 +16,9 @@ export const PUBLICATIONS: PublicationYear[] = [
   {
     year: 2026,
     items: [
-      "Seo SU, Woo SM, Choi M, Rhee S, Yook S, Shin D, Park KS, Kwon TK. Selective Modulation of OTUB1 Noncanonical Function via a bioPhosTAC Strategy. Adv Sci. 2026, e77265.",
-      "Lim W, Kim J, Kim S, Bong H, Park KS, Jeon M. DR.DEGMON: self-explainable deep neural network for drug-induced cell viability prediction incorporating differentially expressed genes and gene ontology. BMC Med Genomics. 2026, 19(Suppl 1), 119.",
-      "Park KS, Kwon TK. Induced proximity for dephosphorylation. Trends Pharmacol Sci. 2026, 47(5), 470-473.",
+      "Seo SU, Woo SM, Choi M, Rhee S, Yook S, Shin D, Park KS#, Kwon TK. Selective Modulation of OTUB1 Noncanonical Function via a bioPhosTAC Strategy. Adv Sci. 2026, e77265.",
+      "Lim W, Kim J, Kim S, Bong H, Park KS#, Jeon M. DR.DEGMON: self-explainable deep neural network for drug-induced cell viability prediction incorporating differentially expressed genes and gene ontology. BMC Med Genomics. 2026, 19(Suppl 1), 119.",
+      "Park KS*#, Kwon TK. Induced proximity for dephosphorylation. Trends Pharmacol Sci. 2026, 47(5), 470-473.",
       "Chen H*, Dutta RP*, Li Z*, Zhong Y*, Ma A*, Park KS *, Kottur J, Park A, Babault N, Wang K, Wang D, Xiong Y, Kaniskan HÜ, Luo M, Parekh S, Jin J. Discovery of a Potent, Selective, and In Vivo Efficacious Covalent Inhibitor for Lysine Methyltransferase SETD8. J Med Chem. 2026 69(4), 4255-4269."
     ]
   },

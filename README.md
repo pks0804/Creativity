@@ -21,7 +21,7 @@
 | 연락처(이메일·전화·주소) | `src/content/labInfo.ts` |
 | 홈 소개 글(Welcome, Expertise, Focus Areas) | `src/content/homeContent.ts` |
 | 연구 분야 페이지 | `src/content/researchAreas.ts` |
-| 논문 목록(Publications) | `src/content/publications.ts` (해당 연도 맨 앞에 한 줄 추가) |
+| 논문 목록(Publications) | `src/content/publications.ts` (해당 연도 맨 앞에 한 줄 추가, 제1저자 `*`·교신저자 `#` 표기) |
 | 구성원·사진 페이지 | `src/content/people.ts` |
 | 지원 안내(Join us) | `src/content/joinUs.ts` |
 | 사이트 대표 색상(brand) | `src/index.css` 맨 위 `@theme` 부분 |
