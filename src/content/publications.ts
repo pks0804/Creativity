@@ -16,8 +16,8 @@ export const PUBLICATIONS: PublicationYear[] = [
   {
     year: 2026,
     items: [
-      "Seo SU, Woo SM, Choi M, Rhee S, Yook S, Shin D, Park KS#, Kwon TK. Selective Modulation of OTUB1 Noncanonical Function via a bioPhosTAC Strategy. Adv Sci. 2026, e77265.",
-      "Lim W, Kim J, Kim S, Bong H, Park KS#, Jeon M. DR.DEGMON: self-explainable deep neural network for drug-induced cell viability prediction incorporating differentially expressed genes and gene ontology. BMC Med Genomics. 2026, 19(Suppl 1), 119.",
+      "Seo SU, Woo SM, Choi M, Rhee S, Yook S, Shin D, Park KS#, Kwon TK#. Selective Modulation of OTUB1 Noncanonical Function via a bioPhosTAC Strategy. Adv Sci. 2026, e77265.",
+      "Lim W, Kim J, Kim S, Bong H, Park KS#, Jeon M#. DR.DEGMON: self-explainable deep neural network for drug-induced cell viability prediction incorporating differentially expressed genes and gene ontology. BMC Med Genomics. 2026, 19(Suppl 1), 119.",
       "Park KS*#, Kwon TK. Induced proximity for dephosphorylation. Trends Pharmacol Sci. 2026, 47(5), 470-473.",
       "Chen H*, Dutta RP*, Li Z*, Zhong Y*, Ma A*, Park KS *, Kottur J, Park A, Babault N, Wang K, Wang D, Xiong Y, Kaniskan HÜ, Luo M, Parekh S, Jin J. Discovery of a Potent, Selective, and In Vivo Efficacious Covalent Inhibitor for Lysine Methyltransferase SETD8. J Med Chem. 2026 69(4), 4255-4269."
     ]
