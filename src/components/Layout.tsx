@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { FOOTER_NOTICE, LAB_INTRO, SITE_NAME } from '../lib/siteConfig';
+import { LAB_INTRO, SITE_NAME } from '../lib/siteConfig';
 import { Avatar } from './Avatar';
-import { IconAlert, IconCapsule, IconClose, IconMail, IconMenu, IconPhone, IconPin } from './Icons';
+import { IconCapsule, IconClose, IconMail, IconMenu, IconPhone, IconPin } from './Icons';
 import { CONTACT, LAB } from '../content/labInfo';
 
 // 상단 메뉴. 모두 누구나 볼 수 있고, 논문 원문 링크는 로그인해야 열립니다.
@@ -134,11 +134,7 @@ export function Layout() {
               <li className="flex items-start gap-2"><IconPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />{CONTACT.address}</li>
             </ul>
           </div>
-          <div className="mt-8 flex items-start gap-3 rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-sm text-amber-100">
-            <IconAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
-            <p>{FOOTER_NOTICE}</p>
-          </div>
-          <p className="mt-6 text-xs text-brand-400">© {new Date().getFullYear()} {LAB_INTRO.title}</p>
+          <p className="mt-8 border-t border-white/10 pt-6 text-xs text-brand-400">© {new Date().getFullYear()} {LAB_INTRO.title}</p>
         </div>
       </footer>
     </div>

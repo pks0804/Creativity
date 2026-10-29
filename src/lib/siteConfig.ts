@@ -9,7 +9,3 @@ export const LAB_INTRO = {
     '유도 근접(Induced Proximity) 기술을 연구합니다. ' +
     '최신 연구 성과와 분야의 주요 논문을 소개합니다.',
 };
-
-// 푸터에 항상 표시되는 안내 문구
-export const FOOTER_NOTICE =
-  '환자 정보 등 개인식별정보와 미공개 민감 데이터는 업로드하지 마세요.';
