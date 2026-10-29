@@ -55,6 +55,10 @@ export const MEMBER_PHOTOS = [
 // 사진(갤러리) 페이지 앨범
 export const GALLERY = [
   {
+    title: '2026 Group Photo',
+    photos: ['/images/gallery-2026-group-1.jpg', '/images/gallery-2026-group-2.jpg'],
+  },
+  {
     title: '2025 Spring · PSK with Dr. Jian Jin',
     photos: ['/images/gallery-2025-jin-1.jpg', '/images/gallery-2025-jin-2.jpg', '/images/gallery-2025-jin-3.jpg'],
   },
