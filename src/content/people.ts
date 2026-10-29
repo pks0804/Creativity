@@ -59,6 +59,10 @@ export const GALLERY = [
     photos: ['/images/gallery-2025-jin-1.jpg', '/images/gallery-2025-jin-2.jpg', '/images/gallery-2025-jin-3.jpg'],
   },
   {
+    title: '2025 Group Photo',
+    photos: ['/images/gallery-2025-group-1.jpg', '/images/gallery-2025-group-2.jpg'],
+  },
+  {
     title: '2024 Group Photo',
     photos: ['/images/gallery-2024-group.jpg'],
   },
