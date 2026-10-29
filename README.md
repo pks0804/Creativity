@@ -17,6 +17,7 @@
 | 홈 화면 연구실 소개 문구, 사이트 이름 | `src/lib/siteConfig.ts` |
 | 구성원 추가·삭제, 역할 변경 | Firebase 콘솔 → Firestore → `allowedEmails` (아래 ⑤ 참고) |
 | 최근 논문 탭의 "한 번에 불러오기" 논문 목록 | `src/data/preparedContent.ts` |
+| 홈 "최신 뉴스" 코너 | `src/content/news.ts` (맨 앞에 새 소식 추가) |
 | 연락처(이메일·전화·주소) | `src/content/labInfo.ts` |
 | 홈 소개 글(Welcome, Expertise, Focus Areas) | `src/content/homeContent.ts` |
 | 연구 분야 페이지 | `src/content/researchAreas.ts` |

@@ -9,6 +9,7 @@ import { PUBLICATIONS } from '../content/publications';
 import { toMessage } from '../components/StatusMessage';
 import { SectionHeading } from '../components/SectionHeading';
 import { Photo } from '../components/Photo';
+import { NewsSection } from '../components/NewsSection';
 import {
   IconArrowRight,
   IconFlask,
@@ -67,6 +68,9 @@ export default function HomePage() {
           <Stat label="최근 논문 소개" value={paperCount ?? '–'} />
         </dl>
       </section>
+
+      {/* 최신 뉴스 */}
+      <NewsSection />
 
       {/* Welcome */}
       <section className="grid items-center gap-8 lg:grid-cols-2">
