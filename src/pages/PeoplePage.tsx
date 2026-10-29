@@ -1,5 +1,5 @@
 import { CONTACT, LAB } from '../content/labInfo';
-import { MEMBERS_BY_YEAR, MEMBER_PHOTOS, PI_PROFILE } from '../content/people';
+import { MEMBERS_BY_YEAR, PI_PROFILE } from '../content/people';
 import { PageHeader } from '../components/PageHeader';
 import { SectionHeading } from '../components/SectionHeading';
 import { Photo } from '../components/Photo';
@@ -57,22 +57,6 @@ export default function PeoplePage() {
             </li>
           ))}
         </ul>
-      </section>
-
-      {/* 단체 사진 */}
-      <section>
-        <SectionHeading eyebrow="Photos" title="함께한 사람들" />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {MEMBER_PHOTOS.map((photo) => (
-            <figure key={photo.src} className="card space-y-3 p-3 sm:p-3">
-              <Photo src={photo.src} alt={photo.title} />
-              <figcaption className="px-1 pb-1">
-                <p className="font-semibold text-slate-800">{photo.title}</p>
-                <p className="mt-0.5 text-xs leading-relaxed text-slate-500">{photo.caption}</p>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
       </section>
     </div>
   );

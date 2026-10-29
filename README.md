@@ -57,7 +57,6 @@
 | 연구 분야 – 상단 그림 2장 (PROTAC, PhosTAC) | `research-protac.png`, `research-phostac.png` |
 | 연구 분야 – 대표 논문 그림 | `toc-bridged-protac.png`, `toc-g9a-covalent.png`, `toc-otub1-biophostac.png` |
 | 구성원 – 교수 사진 | `pi.jpg` |
-| 구성원 – 단체 사진 3장 | `members-2025-spring.jpg`, `members-2025-spring-jin.jpg`, `members-2025-may.jpg` |
 | 사진 – 2025 Spring 앨범 | `gallery-2025-jin-1.jpg` ~ `gallery-2025-jin-3.jpg` |
 | 사진 – 2026 Group Photo | `gallery-2026-group-1.jpg`, `gallery-2026-group-2.jpg` |
 | 사진 – 2025 Group Photo | `gallery-2025-group-1.jpg`, `gallery-2025-group-2.jpg` |

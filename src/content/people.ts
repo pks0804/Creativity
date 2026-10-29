@@ -33,25 +33,6 @@ export const MEMBERS_BY_YEAR = [
   },
 ];
 
-// 구성원 페이지의 단체 사진
-export const MEMBER_PHOTOS = [
-  {
-    src: '/images/members-2025-spring.jpg',
-    title: '2025 Spring',
-    caption: 'Kang Bin Park, Seo Yoon Jang, Sumin Park, Bosung Kim, Sangmok Lee',
-  },
-  {
-    src: '/images/members-2025-spring-jin.jpg',
-    title: '2025 Spring · PSK with Dr. Jian Jin',
-    caption: 'Kang Bin Park, Seo Yoon Jang and Dr. Jian Jin',
-  },
-  {
-    src: '/images/members-2025-may.jpg',
-    title: '2025 May',
-    caption: 'Kang Bin Park, Seo Yoon Jang, Minju Park, Seung Hyun Lee, Dr. Taegum Lee',
-  },
-];
-
 // 사진(갤러리) 페이지 앨범
 export const GALLERY = [
   {
