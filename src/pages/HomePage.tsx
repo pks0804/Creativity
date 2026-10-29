@@ -76,7 +76,10 @@ export default function HomePage() {
             {WELCOME.paragraphs.map((text) => <p key={text.slice(0, 20)}>{text}</p>)}
           </div>
         </div>
-        <Photo src={HOME_IMAGE} alt={LAB.fullName} className="aspect-[4/3] shadow-lg" />
+        {/* 대표 그림(학술지 표지 그림)은 정사각형이라 잘리지 않게 정사각형 칸에, 원본이 작아 너무 크게 키우지 않습니다. */}
+        <div className="mx-auto w-full max-w-sm">
+          <Photo src={HOME_IMAGE} alt="No more inhibition, time for degradation — Nature Chemical Biology cover art" className="aspect-square object-contain shadow-lg" />
+        </div>
       </section>
 
       {/* Our Expertise */}
