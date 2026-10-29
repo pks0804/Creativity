@@ -1,4 +1,4 @@
-// 수업 자료 등록(/lectures/new)과 수정(/lectures/:id/edit)을 함께 처리합니다.
+// 최근 논문 등록(/papers/new)과 수정(/papers/:id/edit)을 함께 처리합니다.
 import { useEffect, useState, type FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createLecture, getLecture, updateLecture } from '../services/lectureService';
@@ -40,7 +40,7 @@ export default function LectureFormPage() {
     setError('');
     const cleaned = cleanLinks(links);
     if (title.trim() === '') return setError('제목을 입력해 주세요.');
-    if (course.trim() === '') return setError('과목명을 입력해 주세요.');
+    if (course.trim() === '') return setError('분류를 입력해 주세요.');
     const linkError = validateLinks(cleaned);
     if (linkError) return setError(linkError);
 
@@ -49,7 +49,7 @@ export default function LectureFormPage() {
     try {
       if (id) await updateLecture(id, input);
       else await createLecture(input);
-      navigate('/lectures');
+      navigate('/papers');
     } catch (err) {
       setError(toMessage(err));
       setSaving(false);
@@ -61,18 +61,18 @@ export default function LectureFormPage() {
   return (
     <form onSubmit={handleSubmit} className="card mx-auto max-w-3xl space-y-6 sm:p-10">
       <div className="border-b border-slate-100 pb-5">
-        <h1 className="page-title">{isEdit ? '수업 자료 수정' : '수업 자료 등록'}</h1>
+        <h1 className="page-title">{isEdit ? '최근 논문 수정' : '최근 논문 등록'}</h1>
         <p className="mt-1 text-sm text-slate-500">* 표시는 필수 항목입니다.</p>
       </div>
 
       <div>
         <label className="label" htmlFor="title">제목 *</label>
-        <input id="title" className="input" placeholder="예: 3주차 대사와 배설" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input id="title" className="input" placeholder="예: 논문 제목 (저자 · 학술지 연도)" value={title} onChange={(e) => setTitle(e.target.value)} />
       </div>
 
       <div>
-        <label className="label" htmlFor="course">과목명 *</label>
-        <input id="course" className="input" placeholder="예: 약동학" value={course} onChange={(e) => setCourse(e.target.value)} />
+        <label className="label" htmlFor="course">분류 *</label>
+        <input id="course" className="input" placeholder="예: 유도 근접(Induced Proximity) — 같은 분류끼리 묶여 보입니다" value={course} onChange={(e) => setCourse(e.target.value)} />
       </div>
 
       <div>

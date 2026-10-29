@@ -1,4 +1,5 @@
-// 수업 자료 읽기/쓰기 함수 모음 (Firestore 'lectures' 컬렉션)
+// '최근 논문' 탭의 읽기/쓰기 함수 모음 (Firestore 'lectures' 컬렉션)
+// 처음에 '수업 자료' 탭으로 만들어서 저장소 이름이 lectures 입니다. 이미 저장된 데이터를 그대로 쓰기 위해 이름은 유지했습니다.
 import {
   addDoc,
   collection,
@@ -50,7 +51,7 @@ export async function deleteLecture(id: string): Promise<void> {
   await deleteDoc(doc(lecturesCol, id));
 }
 
-// 준비된 수업 자료를 한 번에 등록합니다. (관리자 전용, 같은 제목은 건너뜀)
+// 준비된 논문을 한 번에 등록합니다. (관리자 전용, 같은 제목은 건너뜀)
 export async function importLectures(items: (LectureInput & { createdAt: string })[]): Promise<number> {
   const user = await requireAdmin();
   const existing = new Set((await listLectures()).map((item) => item.title));

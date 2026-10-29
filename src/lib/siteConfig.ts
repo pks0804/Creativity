@@ -7,7 +7,7 @@ export const LAB_INTRO = {
   description:
     '표적 단백질 분해(Targeted Protein Degradation), 특히 PROTAC 기반 신약 개발과 ' +
     '유도 근접(Induced Proximity) 기술을 연구합니다. ' +
-    '연구 자료와 수업 자료를 공유하고 대학원생들과 함께 토론하는 공간입니다.',
+    '최신 연구 성과와 분야의 주요 논문을 소개합니다.',
 };
 
 // 푸터에 항상 표시되는 안내 문구

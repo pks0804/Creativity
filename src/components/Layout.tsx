@@ -6,7 +6,7 @@ import { Avatar } from './Avatar';
 import { IconAlert, IconCapsule, IconClose, IconMail, IconMenu, IconPhone, IconPin } from './Icons';
 import { CONTACT, LAB } from '../content/labInfo';
 
-// 상단 메뉴. 앞쪽은 연구실 소개(누구나), 뒤쪽은 자료실(열람은 누구나, 링크·댓글은 로그인)
+// 상단 메뉴. 모두 누구나 볼 수 있고, 논문 원문 링크는 로그인해야 열립니다.
 const NAV_ITEMS = [
   { to: '/', label: '홈', end: true },
   { to: '/areas', label: '연구 분야', end: false },
@@ -14,8 +14,7 @@ const NAV_ITEMS = [
   { to: '/people', label: '구성원', end: false },
   { to: '/gallery', label: '사진', end: false },
   { to: '/join', label: '지원 안내', end: false },
-  { to: '/research', label: '연구 자료', end: false },
-  { to: '/lectures', label: '수업 자료', end: false },
+  { to: '/papers', label: '최근 논문', end: false },
 ];
 
 const desktopNavClass = ({ isActive }: { isActive: boolean }) =>

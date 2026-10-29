@@ -14,7 +14,7 @@ export default function LoginPage() {
   const [busy, setBusy] = useState(false);
 
   // 로그인 전에 가려던 페이지가 있으면 그쪽으로 돌려보냅니다.
-  const from = (location.state as { from?: string } | null)?.from ?? '/research';
+  const from = (location.state as { from?: string } | null)?.from ?? '/';
 
   const handleLogin = async () => {
     setBusy(true);
@@ -34,7 +34,7 @@ export default function LoginPage() {
       <div className="card mx-auto max-w-md text-center">
         <div className="mb-4 flex justify-center"><Avatar name={user.name} /></div>
         <p className="mb-6 text-slate-700"><strong>{user.name}</strong> 님으로 로그인되어 있습니다.</p>
-        <Link to="/research" className="btn-primary">연구 자료 보러 가기 <IconArrowRight className="h-4 w-4" /></Link>
+        <Link to="/papers" className="btn-primary">최근 논문 보러 가기 <IconArrowRight className="h-4 w-4" /></Link>
       </div>
     );
   }
@@ -47,9 +47,9 @@ export default function LoginPage() {
           <IconCapsule className="h-6 w-6" />
         </span>
         <div>
-          <h2 className="text-2xl font-bold leading-snug">연구와 수업을<br />함께 나누는 공간</h2>
+          <h2 className="text-2xl font-bold leading-snug">연구실 구성원<br />전용 로그인</h2>
           <p className="mt-3 text-sm leading-relaxed text-brand-100">
-            홈페이지는 누구나 볼 수 있습니다. 등록된 연구실 구성원은 로그인하면 논문 원문 링크를 열고 토론에 참여할 수 있습니다.
+            홈페이지는 누구나 볼 수 있습니다. 등록된 연구실 구성원은 로그인하면 논문 원문 링크를 열 수 있습니다.
           </p>
         </div>
       </div>

@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { listResearch } from '../services/researchService';
 import { listLectures } from '../services/lectureService';
-import type { Research } from '../services/types';
 import { LAB_INTRO } from '../lib/siteConfig';
-import { formatDate } from '../lib/format';
 import { LAB, CONTACT } from '../content/labInfo';
 import { COLLABORATE, EXPERTISE, FOCUS_AREAS, HOME_IMAGE, WELCOME } from '../content/homeContent';
 import { PUBLICATIONS } from '../content/publications';
-import { EmptyState, ErrorMessage, Loading, toMessage } from '../components/StatusMessage';
+import { toMessage } from '../components/StatusMessage';
 import { SectionHeading } from '../components/SectionHeading';
 import { Photo } from '../components/Photo';
 import {
@@ -27,21 +24,14 @@ const EXPERTISE_ICONS = [<IconTarget key="t" />, <IconFlask key="f" />, <IconCap
 
 export default function HomePage() {
   const { user } = useAuth();
-  const [recent, setRecent] = useState<Research[]>([]);
-  const [counts, setCounts] = useState({ research: 0, lectures: 0 });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [paperCount, setPaperCount] = useState<number | null>(null);
   const publicationCount = PUBLICATIONS.reduce((sum, group) => sum + group.items.length, 0);
 
-  // 자료 목록은 누구나 볼 수 있으므로 로그인 여부와 상관없이 불러옵니다.
+  // '최근 논문' 개수 (누구나 볼 수 있으므로 로그인 여부와 상관없이 불러옵니다)
   useEffect(() => {
-    Promise.all([listResearch(), listLectures()])
-      .then(([research, lectures]) => {
-        setRecent(research.slice(0, 5));
-        setCounts({ research: research.length, lectures: lectures.length });
-      })
-      .catch((e: unknown) => setError(toMessage(e)))
-      .finally(() => setLoading(false));
+    listLectures()
+      .then((items) => setPaperCount(items.length))
+      .catch((e: unknown) => console.warn(toMessage(e)));
   }, []);
 
   return (
@@ -72,10 +62,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        <dl className="relative mt-10 grid max-w-xl grid-cols-3 gap-3">
-          <Stat label="논문" value={publicationCount} />
-          <Stat label="연구 자료" value={loading || error ? '–' : counts.research} />
-          <Stat label="수업 자료" value={loading || error ? '–' : counts.lectures} />
+        <dl className="relative mt-10 grid max-w-sm grid-cols-2 gap-3">
+          <Stat label="발표 논문" value={publicationCount} />
+          <Stat label="최근 논문 소개" value={paperCount ?? '–'} />
         </dl>
       </section>
 
@@ -121,43 +110,6 @@ export default function HomePage() {
         <Link to="/areas" className="mt-8 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:text-brand-800">
           연구 분야 자세히 보기 <IconArrowRight className="h-4 w-4" />
         </Link>
-      </section>
-
-      {/* 최근 연구 자료 */}
-      <section>
-        <div className="mb-5 flex items-end justify-between">
-          <SectionHeading eyebrow="Latest" title="최근 연구 자료" />
-          <Link to="/research" className="mb-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:text-brand-800">
-            전체 보기 <IconArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-
-        {loading ? (
-          <Loading />
-        ) : error ? (
-          <ErrorMessage message={error} />
-        ) : recent.length === 0 ? (
-          <EmptyState icon={<IconFlask />}>아직 등록된 연구 자료가 없습니다.</EmptyState>
-        ) : (
-          <ul className="divide-y divide-slate-100 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
-            {recent.map((item) => (
-              <li key={item.id}>
-                <Link to={`/research/${item.id}`} className="group flex items-center gap-4 px-5 py-4 transition hover:bg-brand-50/50">
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-semibold text-slate-800 group-hover:text-brand-700">{item.title}</p>
-                    <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                      {item.tags.slice(0, 3).map((tag) => (
-                        <span key={tag} className="tag">#{tag}</span>
-                      ))}
-                    </div>
-                  </div>
-                  <span className="hidden shrink-0 text-xs text-slate-400 sm:block">{formatDate(item.createdAt)}</span>
-                  <IconArrowRight className="h-4 w-4 shrink-0 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-brand-500" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
       </section>
 
       {/* Collaborate & Contact */}
